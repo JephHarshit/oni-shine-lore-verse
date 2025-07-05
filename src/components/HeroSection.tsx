@@ -55,7 +55,7 @@ const HeroSection = () => {
     <section 
       className="relative min-h-screen bg-[#780000] overflow-hidden pt-20"
       style={{
-        backgroundImage: `linear-gradient(135deg, #780000 0%, rgba(255, 197, 197, 0.35) 100%)`
+        background: `#780000`
       }}
     >
       {/* Background Animation Elements */}
@@ -92,7 +92,7 @@ const HeroSection = () => {
                 key={character.id}
                 className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
                   isExpanded 
-                    ? 'w-80 h-96' 
+                    ? 'w-80 h-80' 
                     : 'w-48 h-80'
                 } ${
                   relativeIndex === 0 ? 'opacity-100' : 
