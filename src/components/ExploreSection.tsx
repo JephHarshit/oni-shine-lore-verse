@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ExploreSection = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -9,6 +10,7 @@ const ExploreSection = () => {
     type: [],
     season: []
   });
+  const navigate = useNavigate();
 
   const toggleFilter = (category: string, value: string) => {
     if (category === 'gender') {
@@ -21,9 +23,9 @@ const ExploreSection = () => {
         ...prev,
         type: prev.type.includes(value)
           ? prev.type.filter(item => item !== value)
-          : prev.type.includes('Demon') && (value === 'Demon Slayer' || value === 'Hashira')
-          ? [value]
           : value === 'Demon' && (prev.type.includes('Demon Slayer') || prev.type.includes('Hashira'))
+          ? [value]
+          : prev.type.includes('Demon') && (value === 'Demon Slayer' || value === 'Hashira')
           ? [value]
           : [...prev.type, value]
       }));
@@ -39,11 +41,13 @@ const ExploreSection = () => {
 
   const handleSearch = () => {
     console.log("Searching with:", { searchQuery, selectedFilters });
-    // Navigate to search results page
+    navigate('/explore-results', { 
+      state: { searchQuery, selectedFilters } 
+    });
   };
 
   return (
-    <section className="bg-white py-20">
+    <section id="explore" className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-black mb-4">EXPLORE</h2>

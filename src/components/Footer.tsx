@@ -30,9 +30,10 @@ const Footer = () => {
   return (
     <footer className="bg-[#003049] text-white py-16">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        {/* Main Footer Content - Single Row */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
           {/* Vertical Site Name */}
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-center">
             <div className="text-4xl font-bold tracking-wider">
               <div>O</div>
               <div>n</div>
@@ -65,6 +66,19 @@ const Footer = () => {
               <a href="#" className="block text-white/70 hover:text-white transition-colors">Fill it random</a>
               <a href="#" className="block text-white/70 hover:text-white transition-colors">Our Blog</a>
               <a href="#" className="block text-white/70 hover:text-white transition-colors">Fill it random</a>
+            </div>
+          </div>
+
+          {/* Terms & Conditions */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 opacity-100">Terms & Conditions</h3>
+            <div className="space-y-2 text-white/70 text-sm">
+              <a href="#" className="block hover:text-white transition-colors">Our BlogSite</a>
+              <a href="#" className="block hover:text-white transition-colors">Team</a>
+              <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
+              <a href="#" className="block hover:text-white transition-colors">Our Blog</a>
+              <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
+              <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
             </div>
           </div>
 
@@ -105,25 +119,8 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Terms & Conditions Row */}
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-              <h4 className="font-bold mb-2">Terms & Conditions</h4>
-              <div className="space-y-1 text-white/70 text-sm">
-                <a href="#" className="block hover:text-white transition-colors">Our BlogSite</a>
-                <a href="#" className="block hover:text-white transition-colors">Team</a>
-                <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
-                <a href="#" className="block hover:text-white transition-colors">Our Blog</a>
-                <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
-                <a href="#" className="block hover:text-white transition-colors">Fill it random</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Copyright */}
-        <div className="mt-8 pt-8 border-t border-white/20 text-center">
+        <div className="mt-12 pt-8 border-t border-white/20 text-center">
           <p className="text-white/70 text-sm">copyright © 2025</p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const characters = [
   {
@@ -51,18 +52,52 @@ const HeroSection = () => {
     setCurrentIndex((prev) => (prev - 1 + characters.length) % characters.length);
   };
 
+  const scrollToExplore = () => {
+    const element = document.getElementById('explore');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <section 
-      className="relative min-h-screen bg-[#780000] overflow-hidden pt-20"
-      style={{
-        background: `#780000`
-      }}
-    >
-      {/* Background Animation Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-32 h-32 border border-white rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-24 h-24 border border-white rounded-full animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-white rounded-full animate-pulse delay-500"></div>
+    <section className="relative min-h-screen bg-[#780000] overflow-hidden pt-20">
+      {/* Animated Avocado-shaped Background Lines */}
+      <div className="absolute inset-0 opacity-20">
+        <motion.div
+          className="absolute top-20 left-10"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          <svg width="300" height="400" viewBox="0 0 300 400" className="stroke-white fill-none stroke-1">
+            <path d="M150 50 Q100 80 80 150 Q80 250 120 320 Q150 360 180 320 Q220 250 220 150 Q200 80 150 50 Z" />
+            <path d="M150 60 Q110 90 90 150 Q90 240 125 310 Q150 340 175 310 Q210 240 210 150 Q190 90 150 60 Z" />
+            <path d="M150 70 Q120 100 100 150 Q100 230 130 300 Q150 320 170 300 Q200 230 200 150 Q180 100 150 70 Z" />
+            <path d="M150 80 Q130 110 110 150 Q110 220 135 290 Q150 300 165 290 Q190 220 190 150 Q170 110 150 80 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute bottom-20 right-10"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        >
+          <svg width="250" height="350" viewBox="0 0 250 350" className="stroke-white fill-none stroke-1">
+            <path d="M125 40 Q85 65 70 125 Q70 200 100 260 Q125 290 150 260 Q180 200 180 125 Q165 65 125 40 Z" />
+            <path d="M125 50 Q95 75 80 125 Q80 190 105 250 Q125 270 145 250 Q170 190 170 125 Q155 75 125 50 Z" />
+            <path d="M125 60 Q105 85 90 125 Q90 180 110 240 Q125 250 140 240 Q160 180 160 125 Q145 85 125 60 Z" />
+          </svg>
+        </motion.div>
+
+        <motion.div
+          className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        >
+          <svg width="200" height="280" viewBox="0 0 200 280" className="stroke-white fill-none stroke-1">
+            <path d="M100 30 Q70 50 60 100 Q60 160 85 210 Q100 230 115 210 Q140 160 140 100 Q130 50 100 30 Z" />
+            <path d="M100 40 Q80 60 70 100 Q70 150 90 200 Q100 210 110 200 Q130 150 130 100 Q120 60 100 40 Z" />
+          </svg>
+        </motion.div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 h-screen flex items-center">
@@ -121,7 +156,7 @@ const HeroSection = () => {
                       <h3 className="text-xl font-bold mb-2 tracking-wider">
                         {character.name}
                       </h3>
-                      <p className="text-sm opacity-90 backdrop-blur-sm bg-black/20 p-2 rounded">
+                      <p className="text-sm opacity-90 backdrop-blur-sm bg-black/20 p-2 rounded inline-block">
                         {character.description}
                       </p>
                     </div>
@@ -133,7 +168,7 @@ const HeroSection = () => {
         </div>
 
         {/* Carousel Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {characters.map((_, index) => (
             <button
               key={index}
@@ -144,6 +179,22 @@ const HeroSection = () => {
             />
           ))}
         </div>
+
+        {/* Scroll to Explore Button */}
+        <motion.button
+          onClick={scrollToExplore}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-[#85E912] text-black px-6 py-3 rounded-full hover:bg-[#6BB00F] transition-colors flex items-center gap-2"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Explore More
+          <motion.div
+            animate={{ y: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ChevronDown className="w-5 h-5" />
+          </motion.div>
+        </motion.button>
       </div>
     </section>
   );
