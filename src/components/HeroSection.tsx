@@ -35,6 +35,15 @@ const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      if (!isHovered) {
+        setCurrentIndex((prev) => (prev + 1) % characters.length);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  useEffect(() => {
     if (!isHovered) {
       const interval = setInterval(() => {
         setExpandedCard((prev) => (prev + 1) % characters.length);
@@ -58,35 +67,23 @@ const HeroSection = () => {
     }
   };
 
+  const getVisibleCards = () => {
+    const visibleCards = [];
+    const totalCards = characters.length;
+    
+    // Desktop: 4 cards, Tablet: 3 cards, Mobile: 2 cards
+    const cardsToShow = window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 3 : 2;
+    
+    for (let i = 0; i < cardsToShow; i++) {
+      const index = (currentIndex + i) % totalCards;
+      visibleCards.push(characters[index]);
+    }
+    
+    return visibleCards;
+  };
+
   return (
     <section className="relative min-h-screen bg-[#780000] overflow-hidden pt-20">
-      {/* Animated Avocado-shaped Background Lines */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 animate-spin" style={{ animationDuration: '30s' }}>
-          <svg width="300" height="400" viewBox="0 0 300 400" className="stroke-white fill-none stroke-1">
-            <path d="M150 50 Q100 80 80 150 Q80 250 120 320 Q150 360 180 320 Q220 250 220 150 Q200 80 150 50 Z" />
-            <path d="M150 60 Q110 90 90 150 Q90 240 125 310 Q150 340 175 310 Q210 240 210 150 Q190 90 150 60 Z" />
-            <path d="M150 70 Q120 100 100 150 Q100 230 130 300 Q150 320 170 300 Q200 230 200 150 Q180 100 150 70 Z" />
-            <path d="M150 80 Q130 110 110 150 Q110 220 135 290 Q150 300 165 290 Q190 220 190 150 Q170 110 150 80 Z" />
-          </svg>
-        </div>
-
-        <div className="absolute bottom-20 right-10 animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }}>
-          <svg width="250" height="350" viewBox="0 0 250 350" className="stroke-white fill-none stroke-1">
-            <path d="M125 40 Q85 65 70 125 Q70 200 100 260 Q125 290 150 260 Q180 200 180 125 Q165 65 125 40 Z" />
-            <path d="M125 50 Q95 75 80 125 Q80 190 105 250 Q125 270 145 250 Q170 190 170 125 Q155 75 125 50 Z" />
-            <path d="M125 60 Q105 85 90 125 Q90 180 110 240 Q125 250 140 240 Q160 180 160 125 Q145 85 125 60 Z" />
-          </svg>
-        </div>
-
-        <div className="absolute top-1/2 left-1/4 transform -translate-x-1/2 -translate-y-1/2 animate-spin" style={{ animationDuration: '40s' }}>
-          <svg width="200" height="280" viewBox="0 0 200 280" className="stroke-white fill-none stroke-1">
-            <path d="M100 30 Q70 50 60 100 Q60 160 85 210 Q100 230 115 210 Q140 160 140 100 Q130 50 100 30 Z" />
-            <path d="M100 40 Q80 60 70 100 Q70 150 90 200 Q100 210 110 200 Q130 150 130 100 Q120 60 100 40 Z" />
-          </svg>
-        </div>
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 h-screen flex items-center">
         {/* Navigation Arrows */}
         <button
@@ -104,54 +101,135 @@ const HeroSection = () => {
         </button>
 
         {/* Character Cards Carousel */}
-        <div className="flex items-center justify-center w-full space-x-4">
-          {characters.map((character, index) => {
-            const isExpanded = expandedCard === index;
-            const relativeIndex = (index - currentIndex + characters.length) % characters.length;
-            
-            return (
-              <div
-                key={character.id}
-                className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
-                  isExpanded 
-                    ? 'w-80 h-80' 
-                    : 'w-48 h-80'
-                } ${
-                  relativeIndex === 0 ? 'opacity-100' : 
-                  relativeIndex === 1 || relativeIndex === characters.length - 1 ? 'opacity-80' : 
-                  'opacity-40'
-                }`}
-                onMouseEnter={() => {
-                  setIsHovered(true);
-                  setExpandedCard(index);
-                }}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                {/* Card Image */}
-                <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                  <img
-                    src={character.image}
-                    alt={character.name}
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  {/* Expanded Content */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 ${
-                    isExpanded ? 'opacity-100' : 'opacity-0'
-                  }`}>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2 tracking-wider">
-                        {character.name}
-                      </h3>
-                      <p className="text-sm opacity-90 backdrop-blur-sm bg-black/20 p-2 rounded inline-block">
-                        {character.description}
-                      </p>
+        <div className="flex items-center justify-center w-full">
+          <div 
+            className="flex items-center space-x-4 transition-transform duration-700 ease-in-out"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* Desktop: 4 cards */}
+            <div className="hidden lg:flex items-center space-x-4">
+              {getVisibleCards().map((character, index) => {
+                const isExpanded = expandedCard === ((currentIndex + index) % characters.length);
+                
+                return (
+                  <div
+                    key={`${character.id}-${currentIndex}-${index}`}
+                    className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
+                      isExpanded ? 'w-72 h-80' : 'w-56 h-80'
+                    }`}
+                    onMouseEnter={() => {
+                      setIsHovered(true);
+                      setExpandedCard((currentIndex + index) % characters.length);
+                    }}
+                  >
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                      <img
+                        src={character.image}
+                        alt={character.name}
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 ${
+                        isExpanded ? 'opacity-100' : 'opacity-0'
+                      }`}>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <h3 className="text-lg font-bold mb-2 tracking-wider">
+                            {character.name}
+                          </h3>
+                          <p className="text-sm opacity-90 backdrop-blur-sm bg-black/20 p-2 rounded inline-block">
+                            {character.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+
+            {/* Tablet: 3 cards */}
+            <div className="hidden md:flex lg:hidden items-center space-x-4">
+              {getVisibleCards().map((character, index) => {
+                const isExpanded = expandedCard === ((currentIndex + index) % characters.length);
+                
+                return (
+                  <div
+                    key={`${character.id}-${currentIndex}-${index}`}
+                    className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
+                      isExpanded ? 'w-72 h-80' : 'w-60 h-80'
+                    }`}
+                    onMouseEnter={() => {
+                      setIsHovered(true);
+                      setExpandedCard((currentIndex + index) % characters.length);
+                    }}
+                  >
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                      <img
+                        src={character.image}
+                        alt={character.name}
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 ${
+                        isExpanded ? 'opacity-100' : 'opacity-0'
+                      }`}>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <h3 className="text-lg font-bold mb-2 tracking-wider">
+                            {character.name}
+                          </h3>
+                          <p className="text-sm opacity-90 backdrop-blur-sm bg-black/20 p-2 rounded inline-block">
+                            {character.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile: 2 cards */}
+            <div className="flex md:hidden items-center space-x-4">
+              {getVisibleCards().map((character, index) => {
+                const isExpanded = expandedCard === ((currentIndex + index) % characters.length);
+                
+                return (
+                  <div
+                    key={`${character.id}-${currentIndex}-${index}`}
+                    className={`relative transition-all duration-700 ease-in-out cursor-pointer ${
+                      isExpanded ? 'w-48 h-64' : 'w-40 h-64'
+                    }`}
+                    onMouseEnter={() => {
+                      setIsHovered(true);
+                      setExpandedCard((currentIndex + index) % characters.length);
+                    }}
+                  >
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                      <img
+                        src={character.image}
+                        alt={character.name}
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-500 ${
+                        isExpanded ? 'opacity-100' : 'opacity-0'
+                      }`}>
+                        <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                          <h3 className="text-sm font-bold mb-1 tracking-wider">
+                            {character.name}
+                          </h3>
+                          <p className="text-xs opacity-90 backdrop-blur-sm bg-black/20 p-1 rounded inline-block">
+                            {character.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* Carousel Indicators */}
