@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   const [scrollSpeed, setScrollSpeed] = useState(1);
@@ -87,11 +86,7 @@ const AboutSection = () => {
 
         {/* Speed Control Button - Centered at bottom */}
         <div className="flex justify-center mt-12">
-          <motion.div 
-            className="bg-[#85E912] text-black px-8 py-4 rounded-full shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <div className="bg-[#85E912] text-black px-8 py-4 rounded-full shadow-lg hover:scale-105 transition-transform">
             <div className="flex items-center space-x-4">
               <span className="font-bold text-lg">Speed Control:</span>
               <input
@@ -105,7 +100,7 @@ const AboutSection = () => {
               />
               <span className="font-bold text-lg">{scrollSpeed}x</span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
