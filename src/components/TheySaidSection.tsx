@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 
 const TheySaidSection = () => {
   const topRowQuotes = [
@@ -16,21 +16,9 @@ const TheySaidSection = () => {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"
   ];
 
-  const [topPosition, setTopPosition] = useState(0);
-  const [bottomPosition, setBottomPosition] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTopPosition(prev => prev - 1);
-      setBottomPosition(prev => prev + 1);
-    }, 30);
-
-    return () => clearInterval(interval);
-  }, []);
-
   // Create multiple copies for seamless loop
-  const topQuotesExtended = [...topRowQuotes, ...topRowQuotes, ...topRowQuotes, ...topRowQuotes];
-  const bottomQuotesExtended = [...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes];
+  const topQuotesExtended = [...topRowQuotes, ...topRowQuotes, ...topRowQuotes];
+  const bottomQuotesExtended = [...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes];
 
   return (
     <section className="py-20 overflow-hidden">
@@ -42,13 +30,7 @@ const TheySaidSection = () => {
       <div className="space-y-8">
         {/* Top Row - Scrolling Left */}
         <div className="relative overflow-hidden">
-          <div 
-            className="flex space-x-6 whitespace-nowrap"
-            style={{ 
-              transform: `translateX(${topPosition}px)`,
-              animation: 'scroll-left 60s linear infinite'
-            }}
-          >
+          <div className="flex space-x-6 animate-scroll-left">
             {topQuotesExtended.map((quote, index) => (
               <div
                 key={index}
@@ -64,13 +46,7 @@ const TheySaidSection = () => {
 
         {/* Bottom Row - Scrolling Right */}
         <div className="relative overflow-hidden">
-          <div 
-            className="flex space-x-6 whitespace-nowrap"
-            style={{ 
-              transform: `translateX(${bottomPosition}px)`,
-              animation: 'scroll-right 60s linear infinite'
-            }}
-          >
+          <div className="flex space-x-6 animate-scroll-right">
             {bottomQuotesExtended.map((quote, index) => (
               <div
                 key={index}

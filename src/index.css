@@ -115,12 +115,21 @@ All colors MUST be HSL.
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* Continuous scrolling animations for broadcasting effect */
+  .animate-scroll-left {
+    animation: scroll-left 40s linear infinite;
+  }
+
+  .animate-scroll-right {
+    animation: scroll-right 40s linear infinite;
+  }
 }
 
-/* Animations for continuous scrolling */
+/* Smooth continuous scrolling animations */
 @keyframes scroll-left {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
     transform: translateX(-100%);
@@ -132,6 +141,16 @@ All colors MUST be HSL.
     transform: translateX(-100%);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(0);
+  }
+}
+
+/* Hero carousel animation */
+@keyframes carousel-rotate {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
   }
 }
