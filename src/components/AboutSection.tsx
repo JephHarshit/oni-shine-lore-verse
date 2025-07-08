@@ -42,7 +42,7 @@ const AboutSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           {/* Left Side - Media Slider */}
           <div className="relative image-div">
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl h-[500px]">
+            <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl h-[500px] w-full">
               <img
                 src={storyContent[currentStoryIndex].media}
                 alt="Story visual"

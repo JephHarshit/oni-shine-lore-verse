@@ -23,10 +23,14 @@ const TheySaidSection = () => {
     const interval = setInterval(() => {
       setTopPosition(prev => prev - 1);
       setBottomPosition(prev => prev + 1);
-    }, 50);
+    }, 30);
 
     return () => clearInterval(interval);
   }, []);
+
+  // Create multiple copies for seamless loop
+  const topQuotesExtended = [...topRowQuotes, ...topRowQuotes, ...topRowQuotes, ...topRowQuotes];
+  const bottomQuotesExtended = [...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes];
 
   return (
     <section className="py-20 overflow-hidden">
@@ -36,16 +40,19 @@ const TheySaidSection = () => {
       </div>
 
       <div className="space-y-8">
-        {/* Top Row - Scrolling Right */}
+        {/* Top Row - Scrolling Left */}
         <div className="relative overflow-hidden">
           <div 
-            className="flex space-x-6 whitespace-nowrap transition-transform duration-75 ease-linear"
-            style={{ transform: `translateX(${topPosition}px)` }}
+            className="flex space-x-6 whitespace-nowrap"
+            style={{ 
+              transform: `translateX(${topPosition}px)`,
+              animation: 'scroll-left 60s linear infinite'
+            }}
           >
-            {[...topRowQuotes, ...topRowQuotes, ...topRowQuotes].map((quote, index) => (
+            {topQuotesExtended.map((quote, index) => (
               <div
                 key={index}
-                className="bg-[#FDF0D5]/50 rounded-2xl p-6 min-w-[300px] max-w-[400px] shadow-lg"
+                className="bg-[#FDF0D5]/50 rounded-2xl p-6 min-w-[300px] max-w-[400px] shadow-lg flex-shrink-0"
               >
                 <p className="text-black whitespace-normal text-sm leading-relaxed">
                   "{quote}"
@@ -55,16 +62,19 @@ const TheySaidSection = () => {
           </div>
         </div>
 
-        {/* Bottom Row - Scrolling Left */}
+        {/* Bottom Row - Scrolling Right */}
         <div className="relative overflow-hidden">
           <div 
-            className="flex space-x-6 whitespace-nowrap transition-transform duration-75 ease-linear"
-            style={{ transform: `translateX(${bottomPosition}px)` }}
+            className="flex space-x-6 whitespace-nowrap"
+            style={{ 
+              transform: `translateX(${bottomPosition}px)`,
+              animation: 'scroll-right 60s linear infinite'
+            }}
           >
-            {[...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes].map((quote, index) => (
+            {bottomQuotesExtended.map((quote, index) => (
               <div
                 key={index}
-                className="bg-[#FFC5C5]/35 rounded-2xl p-6 min-w-[300px] max-w-[400px] shadow-lg"
+                className="bg-[#FFC5C5]/35 rounded-2xl p-6 min-w-[300px] max-w-[400px] shadow-lg flex-shrink-0"
               >
                 <p className="text-black whitespace-normal text-sm leading-relaxed">
                   "{quote}"

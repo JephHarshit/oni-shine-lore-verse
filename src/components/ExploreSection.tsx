@@ -56,7 +56,7 @@ const ExploreSection = () => {
 
         <div className="flex rounded-3xl overflow-hidden shadow-2xl bg-white min-h-[500px]">
           {/* Left Side - Image with Search */}
-          <div className="w-1/5 relative">
+          <div className="w-[30%] relative">
             <img
               src="/lovable-uploads/bdde5c4c-253a-4897-b8f4-840af911cbc6.png"
               alt="Character"
@@ -72,78 +72,91 @@ const ExploreSection = () => {
                 </h3>
                 <input
                   type="text"
-                  placeholder="Enter character name..."
+                  placeholder="search via name"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#85E912] mb-4"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#85E912] mb-4 text-black placeholder-gray-400"
                 />
               </div>
             </div>
           </div>
 
           {/* Right Side - Filters */}
-          <div className="w-4/5 bg-[#669BBC]/50 p-12">
-            <div className="max-w-4xl">
-              <h3 className="text-2xl font-bold text-black mb-8">Select a filter</h3>
+          <div className="w-[70%] bg-[#669BBC]/50 p-12 flex flex-col justify-center">
+            <div className="max-w-4xl mx-auto">
+              <h3 className="text-2xl font-bold text-black mb-8 text-center">Select a filter</h3>
               
-              {/* Type Filters */}
-              <div className="flex flex-wrap gap-4 mb-6">
-                {['Demon Slayer', 'Demon', 'Hashira'].map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => toggleFilter('type', type)}
-                    className={`px-6 py-3 rounded-full font-medium transition-all ${
-                      selectedFilters.type.includes(type)
-                        ? 'bg-[#85E912] text-black'
-                        : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
-                    }`}
-                  >
-                    {type} {selectedFilters.type.includes(type) ? '✓' : '✗'}
-                  </button>
-                ))}
-              </div>
+              <div className="space-y-6">
+                {/* Type Filters */}
+                <div className="flex flex-wrap gap-4 justify-center">
+                  {['Demon Slayer', 'Demon', 'Hashira'].map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => toggleFilter('type', type)}
+                      className={`px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2 ${
+                        selectedFilters.type.includes(type)
+                          ? 'bg-[#669BBC] text-white'
+                          : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
+                      }`}
+                    >
+                      {type} 
+                      <span className="text-sm">
+                        {selectedFilters.type.includes(type) ? '✓' : '✗'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
 
-              {/* Gender Filters */}
-              <div className="flex flex-wrap gap-4 mb-6">
-                {['Female', 'Male'].map((gender) => (
-                  <button
-                    key={gender}
-                    onClick={() => toggleFilter('gender', gender)}
-                    className={`px-6 py-3 rounded-full font-medium transition-all ${
-                      selectedFilters.gender === gender
-                        ? 'bg-[#85E912] text-black'
-                        : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
-                    }`}
-                  >
-                    {gender} {selectedFilters.gender === gender ? '✓' : '✗'}
-                  </button>
-                ))}
-              </div>
+                {/* Gender Filters */}
+                <div className="flex flex-wrap gap-4 justify-center">
+                  {['Female', 'Male'].map((gender) => (
+                    <button
+                      key={gender}
+                      onClick={() => toggleFilter('gender', gender)}
+                      className={`px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2 ${
+                        selectedFilters.gender === gender
+                          ? 'bg-[#669BBC] text-white'
+                          : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
+                      }`}
+                    >
+                      {gender} 
+                      <span className="text-sm">
+                        {selectedFilters.gender === gender ? '✓' : '✗'}
+                      </span>
+                    </button>
+                  ))}
+                </div>
 
-              {/* Season Filters */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                {['Season 1: kimetsu no yaiba'].map((season) => (
-                  <button
-                    key={season}
-                    onClick={() => toggleFilter('season', season)}
-                    className={`px-6 py-3 rounded-full font-medium transition-all ${
-                      selectedFilters.season.includes(season)
-                        ? 'bg-[#85E912] text-black'
-                        : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
-                    }`}
-                  >
-                    {season} {selectedFilters.season.includes(season) ? '✓' : ''}
-                  </button>
-                ))}
+                {/* Season Filters */}
+                <div className="flex flex-wrap gap-4 justify-center">
+                  {['Season 1: kimetsu no yaiba'].map((season) => (
+                    <button
+                      key={season}
+                      onClick={() => toggleFilter('season', season)}
+                      className={`px-6 py-3 rounded-full font-medium transition-all flex items-center gap-2 ${
+                        selectedFilters.season.includes(season)
+                          ? 'bg-[#669BBC] text-white'
+                          : 'bg-[#669BBC] text-white hover:bg-[#85E912] hover:text-black'
+                      }`}
+                    >
+                      {season} 
+                      <span className="text-sm">
+                        {selectedFilters.season.includes(season) ? '✓' : ''}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               {/* Search Button */}
-              <button
-                onClick={handleSearch}
-                className="bg-[#85E912] text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-[#6BB00F] transition-colors flex items-center gap-2 ml-auto"
-              >
-                Search <ArrowRight className="w-5 h-5" />
-              </button>
+              <div className="flex justify-center mt-8">
+                <button
+                  onClick={handleSearch}
+                  className="bg-[#85E912] text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-[#6BB00F] transition-colors flex items-center gap-2"
+                >
+                  Search <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

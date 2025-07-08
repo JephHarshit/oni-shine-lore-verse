@@ -31,7 +31,7 @@ const Footer = () => {
     <footer className="bg-[#003049] text-white py-16">
       <div className="max-w-7xl mx-auto px-6">
         {/* Main Footer Content - Single Row */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 items-start">
           {/* Vertical Site Name */}
           <div className="flex flex-col justify-center">
             <div className="text-4xl font-bold tracking-wider">
@@ -44,16 +44,6 @@ const Footer = () => {
               <div>i</div>
               <div>n</div>
               <div>e</div>
-            </div>
-          </div>
-
-          {/* Address Section */}
-          <div>
-            <h3 className="text-lg font-bold mb-4 opacity-100">Our Address</h3>
-            <div className="text-white/70 space-y-2">
-              <p>ZMY Street - 08</p>
-              <p>1424 Pine Rd.</p>
-              <p>Franklin, PA 18427</p>
             </div>
           </div>
 
