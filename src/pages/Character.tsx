@@ -1,15 +1,52 @@
 
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { Heart, Share2 } from 'lucide-react';
 
 const Character = () => {
-  // This will be populated with actual character data
-  const character = {
-    name: "KAMADO",
-    subtitle: "NEZUKO",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    additionalDescription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  const { id } = useParams();
+  
+  // Sample character data - in a real app, this would come from an API
+  const characters = {
+    '1': {
+      name: "KAMADO",
+      subtitle: "TANJIRO",
+      description: "Tanjiro is the main protagonist of Demon Slayer. He is a kindhearted boy who sold charcoal for a living until his family was slaughtered by demons. He joined the Demon Slayer Corps to find a way to turn his sister Nezuko back into a human and to kill the demon that massacred his family.",
+      additionalDescription: "Despite the tragedy that befell his family, Tanjiro maintains his compassionate nature and refuses to give up hope. His determination and empathy make him a formidable demon slayer."
+    },
+    '2': {
+      name: "KAMADO",
+      subtitle: "NEZUKO",
+      description: "Nezuko is Tanjiro's younger sister who was turned into a demon by Muzan Kibutsuji. Despite being a demon, she has retained her humanity and fights alongside her brother. She is known for her fierce protective instincts and her ability to shrink her body size.",
+      additionalDescription: "Nezuko's transformation is unique among demons as she has never consumed human flesh and retains her human emotions and memories."
+    },
+    '3': {
+      name: "GIYU",
+      subtitle: "TOMIOKA",
+      description: "Giyu Tomioka is the Water Hashira of the Demon Slayer Corps. He is known for his calm and stoic demeanor, rarely showing emotion. He was the first person to show Tanjiro and Nezuko kindness when he spared their lives.",
+      additionalDescription: "Giyu's quiet nature often makes him seem aloof, but he deeply cares about protecting humanity and his fellow demon slayers."
+    },
+    '4': {
+      name: "INOSUKE",
+      subtitle: "HASHIBIRA",
+      description: "Inosuke is a demon slayer who created his own breathing technique called Beast Breathing. He was raised by boars in the mountains and is known for his wild fighting style and his boar mask that he wears on his head.",
+      additionalDescription: "Despite his rough exterior and competitive nature, Inosuke is fiercely loyal to his friends and has a good heart beneath his wild demeanor."
+    },
+    '5': {
+      name: "RENGOKU",
+      subtitle: "KYOJURO",
+      description: "Kyojuro Rengoku was the Flame Hashira of the Demon Slayer Corps. He was known for his enthusiastic and optimistic personality, as well as his incredible strength and mastery of Flame Breathing techniques.",
+      additionalDescription: "Rengoku's unwavering determination and his philosophy of protecting the weak made him a beloved figure among the Demon Slayer Corps."
+    },
+    '6': {
+      name: "SHINOBU",
+      subtitle: "KOCHO",
+      description: "Shinobu Kocho is the Insect Hashira of the Demon Slayer Corps. She is known for her gentle smile and her use of poison-based techniques to kill demons, as she lacks the physical strength to decapitate them.",
+      additionalDescription: "Despite her delicate appearance, Shinobu is one of the most skilled demon slayers and has a deep hatred for demons due to her tragic past."
+    }
   };
+
+  const character = characters[id as keyof typeof characters] || characters['2']; // Default to Nezuko
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 to-white">
@@ -71,7 +108,7 @@ const Character = () => {
                 
                 {/* Floating Character Name on Image */}
                 <div className="absolute top-6 left-6 backdrop-blur-sm bg-white/30 rounded-2xl px-4 py-2 border border-white/40">
-                  <h3 className="text-xl font-bold text-red-600">NE ZU KO</h3>
+                  <h3 className="text-xl font-bold text-red-600">{character.subtitle}</h3>
                 </div>
               </div>
 

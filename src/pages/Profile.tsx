@@ -1,8 +1,43 @@
 
 import Navbar from '../components/Navbar';
-import { User, Settings, Heart, BookOpen } from 'lucide-react';
+import { User, LogOut, Trash2 } from 'lucide-react';
 
 const Profile = () => {
+  // Sample user data
+  const user = {
+    username: "DemonSlayerFan",
+    email: "user@example.com"
+  };
+
+  // Sample favorites data
+  const favorites = [
+    {
+      id: 1,
+      name: 'KAMADO TANJIRO',
+      image: '/lovable-uploads/4254a7da-85ef-4708-9fc4-66d58522597f.png'
+    },
+    {
+      id: 2,
+      name: 'NEZUKO KAMADO',
+      image: '/lovable-uploads/b1fa2537-2501-497e-a5ce-65e2097d94dc.png'
+    },
+    {
+      id: 3,
+      name: 'GIYU TOMIOKA',
+      image: '/lovable-uploads/4b061953-890d-4607-afb7-8a1b1f03f6ad.png'
+    }
+  ];
+
+  const handleLogout = () => {
+    // Logout logic here
+    console.log("User logged out");
+  };
+
+  const handleDeleteAccount = () => {
+    // Delete account logic here
+    console.log("Account deletion requested");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -14,53 +49,62 @@ const Profile = () => {
             <div className="w-24 h-24 bg-[#85E912] rounded-full mx-auto mb-4 flex items-center justify-center">
               <User className="w-12 h-12 text-black" />
             </div>
-            <h1 className="text-4xl font-bold mb-2">Your Profile</h1>
-            <p className="text-muted-foreground">Manage your account and preferences</p>
+            <h1 className="text-4xl font-bold mb-2">Profile</h1>
+            <p className="text-muted-foreground">Manage your account</p>
           </div>
 
-          {/* Profile Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-card border rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-4">
-                <Heart className="w-8 h-8 text-red-500" />
-                <h3 className="text-xl font-semibold">Favorites</h3>
+          <div className="space-y-8">
+            {/* User Information */}
+            <div className="bg-card border rounded-xl p-6">
+              <h2 className="text-2xl font-semibold mb-4">Account Information</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">Username</label>
+                  <p className="text-lg">{user.username}</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-muted-foreground mb-1">Email</label>
+                  <p className="text-lg">{user.email}</p>
+                </div>
               </div>
-              <p className="text-muted-foreground mb-4">View and manage your favorite characters</p>
-              <button className="bg-[#85E912] text-black px-4 py-2 rounded-lg hover:bg-[#6BB00F] transition-colors">
-                View Favorites
-              </button>
             </div>
 
-            <div className="bg-card border rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-4">
-                <BookOpen className="w-8 h-8 text-blue-500" />
-                <h3 className="text-xl font-semibold">Reading History</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">Track characters you've explored</p>
-              <button className="bg-[#85E912] text-black px-4 py-2 rounded-lg hover:bg-[#6BB00F] transition-colors">
-                View History
-              </button>
+            {/* Favorites List */}
+            <div className="bg-card border rounded-xl p-6">
+              <h2 className="text-2xl font-semibold mb-4">Your Favorites ({favorites.length})</h2>
+              {favorites.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {favorites.map((character) => (
+                    <div key={character.id} className="flex items-center gap-3 p-3 bg-background rounded-lg border">
+                      <img
+                        src={character.image}
+                        alt={character.name}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                      <span className="font-medium">{character.name}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">No favorites added yet.</p>
+              )}
             </div>
 
-            <div className="bg-card border rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-4">
-                <Settings className="w-8 h-8 text-gray-600" />
-                <h3 className="text-xl font-semibold">Settings</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">Customize your experience</p>
-              <button className="bg-[#85E912] text-black px-4 py-2 rounded-lg hover:bg-[#6BB00F] transition-colors">
-                Manage Settings
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                <LogOut className="w-5 h-5" />
+                Logout
               </button>
-            </div>
-
-            <div className="bg-card border rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-4 mb-4">
-                <User className="w-8 h-8 text-purple-500" />
-                <h3 className="text-xl font-semibold">Account Info</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">Update your personal information</p>
-              <button className="bg-[#85E912] text-black px-4 py-2 rounded-lg hover:bg-[#6BB00F] transition-colors">
-                Edit Profile
+              <button
+                onClick={handleDeleteAccount}
+                className="flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                <Trash2 className="w-5 h-5" />
+                Delete Account
               </button>
             </div>
           </div>

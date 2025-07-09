@@ -1,31 +1,38 @@
 
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { ArrowRight } from 'lucide-react';
 
 const Favorites = () => {
+  const navigate = useNavigate();
+  
   // Sample favorites data
   const favorites = [
     {
       id: 1,
-      name: 'Rengoku Kyoujoro',
+      name: 'KAMADO TANJIRO',
       image: '/lovable-uploads/4254a7da-85ef-4708-9fc4-66d58522597f.png'
     },
     {
       id: 2,
+      name: 'NEZUKO KAMADO',
+      image: '/lovable-uploads/b1fa2537-2501-497e-a5ce-65e2097d94dc.png'
+    },
+    {
+      id: 3,
       name: 'GIYU TOMIOKA',
       image: '/lovable-uploads/4b061953-890d-4607-afb7-8a1b1f03f6ad.png'
     },
     {
-      id: 3,
-      name: 'Inosuke Hashibira',
-      image: '/lovable-uploads/db638674-c0e8-423a-94ed-8ca7cc479f57.png'
-    },
-    {
       id: 4,
-      name: 'KAMADO NEZUKO',
-      image: '/lovable-uploads/b1fa2537-2501-497e-a5ce-65e2097d94dc.png'
+      name: 'INOSUKE HASHIBIRA',
+      image: '/lovable-uploads/db638674-c0e8-423a-94ed-8ca7cc479f57.png'
     }
   ];
+
+  const handleViewCharacter = (characterId: number) => {
+    navigate(`/character/${characterId}`);
+  };
 
   return (
     <div className="min-h-screen bg-[#780000]">
@@ -67,7 +74,10 @@ const Favorites = () => {
                     </div>
 
                     {/* View Button */}
-                    <button className="bg-[#85E912] text-black px-6 py-3 rounded-full hover:bg-[#6BB00F] transition-colors flex items-center gap-2">
+                    <button 
+                      onClick={() => handleViewCharacter(character.id)}
+                      className="bg-[#85E912] text-black px-6 py-3 rounded-full hover:bg-[#6BB00F] transition-colors flex items-center gap-2"
+                    >
                       View
                       <ArrowRight className="w-4 h-4" />
                     </button>
