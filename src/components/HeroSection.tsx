@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const characters = [
   {
@@ -26,6 +26,18 @@ const characters = [
     name: "INOSUKE HASHIBIRA",
     description: "Beast Breathing user with wild fighting style and boar mask",
     image: "/lovable-uploads/db638674-c0e8-423a-94ed-8ca7cc479f57.png"
+  },
+  {
+    id: 5,
+    name: "RENGOKU KYOJURO",
+    description: "Flame Hashira with fiery determination and unwavering spirit",
+    image: "/lovable-uploads/4254a7da-85ef-4708-9fc4-66d58522597f.png"
+  },
+  {
+    id: 6,
+    name: "SHINOBU KOCHO",
+    description: "Insect Hashira known for her poison techniques and gentle smile",
+    image: "/lovable-uploads/b1fa2537-2501-497e-a5ce-65e2097d94dc.png"
   }
 ];
 
@@ -60,13 +72,6 @@ const HeroSection = () => {
     setCurrentIndex((prev) => (prev - 1 + characters.length) % characters.length);
   };
 
-  const scrollToExplore = () => {
-    const element = document.getElementById('explore');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const getVisibleCards = () => {
     const visibleCards = [];
     const totalCards = characters.length;
@@ -88,14 +93,14 @@ const HeroSection = () => {
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-[#85E912] transition-colors z-20"
+          className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-[#85E912] transition-colors z-20 bg-black/30 rounded-full p-2 hover:bg-black/50"
         >
           <ArrowLeft className="w-8 h-8" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-[#85E912] transition-colors z-20"
+          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-[#85E912] transition-colors z-20 bg-black/30 rounded-full p-2 hover:bg-black/50"
         >
           <ArrowRight className="w-8 h-8" />
         </button>
@@ -244,17 +249,6 @@ const HeroSection = () => {
             />
           ))}
         </div>
-
-        {/* Scroll to Explore Button */}
-        <button
-          onClick={scrollToExplore}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-[#85E912] text-black px-6 py-3 rounded-full hover:bg-[#6BB00F] transition-colors flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform"
-        >
-          Explore More
-          <div className="animate-bounce">
-            <ChevronDown className="w-5 h-5" />
-          </div>
-        </button>
       </div>
     </section>
   );

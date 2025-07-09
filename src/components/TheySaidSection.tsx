@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const TheySaidSection = () => {
@@ -21,7 +20,7 @@ const TheySaidSection = () => {
   const bottomQuotesExtended = [...bottomRowQuotes, ...bottomRowQuotes, ...bottomRowQuotes];
 
   return (
-    <section className="py-20 overflow-hidden">
+    <section id="they-said" className="py-20 overflow-hidden">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-black mb-4">THEY SAID</h2>
         <p className="text-black/50 italic text-lg">'we only heard them say these, no one else'</p>
